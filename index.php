@@ -14,8 +14,8 @@
 <body>
 
 <form action="login.php" method="POST">
-    <label for="login">Login: </label>
-    <input type="text" name="login" id="login">
+    <label for="email">Login: </label>
+    <input type="text" name="email" id="email">
     <br/>
     <label for="senha">Senha: </label>
     <input type="password" name="senha" id="senha">

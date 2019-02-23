@@ -1,7 +1,17 @@
 <?php
 
+require_once('config.php');
 
-$login = $_POST['login'];
-$senha = password_hash($_POST['senha'], PASSWORD_DEFAULT );
+use Repository\UsuarioRepository;
 
-var_dump($login, $senha);
+if (empty($_POST)) {
+    $baseUrl = $_SERVER['HTTP_HOST'];
+    header('Location: /');
+    die();
+}
+
+$usuarioRepository = new UsuarioRepository();
+
+$post = $_POST;
+
+echo $usuarioRepository->login($post);
