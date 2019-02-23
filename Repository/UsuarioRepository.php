@@ -8,6 +8,7 @@ use PDO;
 class UsuarioRepository
 {
     private $conn;
+    private const $COOKIE_NAME="session";
 
     /**
      * UsuarioRepository constructor.
@@ -34,6 +35,7 @@ class UsuarioRepository
         $usuario = $this->getUsuarioByEmail($email);
         if (!empty($usuario)){
             if (password_verify($senha, $usuario[0]->getSenha())) {
+                setCookie($usuario);
                 return "Usuario logado com sucesso!!";
             }
         }
@@ -48,4 +50,15 @@ class UsuarioRepository
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_CLASS, Usuario::class);
     }
-}
+
+    private function setCookie(Usuario user)
+    {
+        setcookie(  $COOKIE_NAME,
+                    com_create_guid(),
+                    time()+3600,
+                    "/",
+                    ".example.com",
+                    1,
+                    1);
+    }
+}   
